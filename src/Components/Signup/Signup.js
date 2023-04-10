@@ -2,32 +2,33 @@ import React, { useState,useContext } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import Logo from '../../olx-logo.png';
 import './Signup.css';
-import { FirebaseContext } from '../../store/FirebaseContext';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateField } from '../../Actions/signupActions';
 
 
 export default function Signup() {
-  const [username,setUsername] = useState('')
-  const [email,setEmail] = useState('')
-  const [phone,setPhone] = useState('')
-  const [password,setPassword] = useState('')
-  const {firebase} = useContext(FirebaseContext)
   const history = useHistory()
+  const dispatch = useDispatch()
+  const signup = useSelector(state=>state.signup);
+  const firebase = useSelector(state=>state.firebase.firebase);
+
 
   const handleSubmit =(e)=>{
     e.preventDefault()
-    firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
-      result.user.updateProfile({displayName:username}).then((result)=>{
+    console.log(firebase)
+    firebase.auth().createUserWithEmailAndPassword(signup.email,signup.password).then((result)=>{
+      result.user.updateProfile({displayName:signup.username}).then(()=>{
         firebase.firestore().collection('users').add({
           id:result.user.uid,
-          username:username,
-          phone:phone
+          username:signup.username,
+          phone:signup.phone
         }).then(()=>{
           history.push("/login")
         })
       })
     })
   }
-
   return (
     <div>
       <div className="signupParentDiv">
@@ -38,11 +39,11 @@ export default function Signup() {
           <input
             className="input"
             type="text"
-            value={username}
-            onChange={(e)=>setUsername(e.target.value)}
+            value={signup.username}
+            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
             id="fname"
-            name="name"
-            defaultValue="John"
+            name="username"
+            defaultValue=""
           />
           <br />
           <label htmlFor="fname">Email</label>
@@ -50,11 +51,11 @@ export default function Signup() {
           <input
             className="input"
             type="email"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
+            value={signup.email}
+            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
             id="fname"
             name="email"
-            defaultValue="John"
+            defaultValue=""
           />
           <br />
           <label htmlFor="lname">Phone</label>
@@ -62,8 +63,8 @@ export default function Signup() {
           <input
             className="input"
             type="number"
-            value={phone}
-            onChange={(e)=>setPhone(e.target.value)}
+            value={signup.phone}
+            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
             id="lname"
             name="phone"
             defaultValue="Doe"
@@ -74,17 +75,17 @@ export default function Signup() {
           <input
             className="input"
             type="password"
-            value = {password}
-            onChange={(e)=>setPassword(e.target.value)}
+            value = {signup.password}
+            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
             id="lname"
             name="password"
-            defaultValue="Doe"
+            defaultValue=""
           />
           <br />
           <br />
           <button>Signup</button>
         </form>
-        <a>Login</a>
+        <Link to='/login'>Login</Link>
       </div>
     </div>
   );
