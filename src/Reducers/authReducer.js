@@ -4,9 +4,9 @@ const initialState = {
 
 
 const authReducer = (state=initialState,action)=>{
-    switch(action){
+    switch(action.type){
         case 'USER_EXIST':
-            return{
+            return {
                 ...state,
                 user:action.user
             }

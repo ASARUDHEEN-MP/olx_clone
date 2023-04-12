@@ -6,9 +6,13 @@ import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Header() {
-  const user = useSelector(state=>state.user)
+  const firebase = useSelector(state=>state.firebase.firebase)
+  const history = useHistory()
+  const user = useSelector(state=>state.user.user)
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -36,15 +40,20 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{user?user.displayName:'Login'}</span>
+          <Link to="/login"><span>{user?`Welcome ${user.displayName}`:'Login'}</span></Link>
           <hr />
         </div>
-
+        {user && <span onClick={
+          ()=>{
+            firebase.auth().signOut()
+            history.push('/login')
+          }
+          }>Logout</span>}
         <div className="sellMenu">
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
-            <span>SELL</span>
+            <Link to='/create'>SELL</Link>
           </div>
         </div>
       </div>
