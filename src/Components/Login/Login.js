@@ -3,20 +3,19 @@ import Logo from '../../olx-logo.png';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateField_Signin } from '../../Actions/signinAction';
+import { useContext } from 'react';
+import FirebaseContext from '../../store/FirebaseContext';
+
 function Login() {
 
-  // const[email,setEmail] = useState('')
-  // const[password,setPassword] = useState('')
+  const[email,setEmail] = useState('')
+  const[password,setPassword] = useState('')
   const history = useHistory()
-  const firebase = useSelector(state=>state.firebase.firebase)
-  const signin = useSelector(state=>state.signin)
-  const dispatch = useDispatch()
+  const firebase = useContext(FirebaseContext)
 
   const handleLogin = (e)=>{
     e.preventDefault()
-    firebase.auth().signInWithEmailAndPassword(signin.email,signin.password).then(()=>{
+    firebase.auth().signInWithEmailAndPassword(email,password).then(()=>{
       history.push('/')
     }).catch((error)=>{
       alert(error.message)
@@ -35,9 +34,9 @@ function Login() {
             className="input"
             type="email"
             id="fname"
-            value={signin.email}
+            value={email}
             name="email"
-            onChange={(e)=>dispatch(updateField_Signin(e.target.name,e.target.value))}
+            onChange={(e)=>setEmail(e.target.value)}
             defaultValue="John"
           />
           <br />
@@ -46,10 +45,10 @@ function Login() {
           <input
             className="input"
             type="password"
-            value={signin.password}
+            value={password}
             id="lname"
             name="password"
-            onChange={(e)=>dispatch(updateField_Signin(e.target.name,e.target.value))}
+            onChange={(e)=>setPassword(e.target.value)}
             defaultValue="Doe"
           />
           <br />

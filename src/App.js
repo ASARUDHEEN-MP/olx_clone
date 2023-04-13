@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import { BrowserRouter as Router,Route } from 'react-router-dom';
 import Signup from './Pages/Signup'
@@ -15,17 +15,18 @@ import { authUser } from './Actions/authUserAction';
  * ?  =====Import Components=====
  */
 import Home from './Pages/Home';
-import { useDispatch, useSelector } from 'react-redux';
-import ViewPost from './Pages/ViewPost';
+import { useDispatch } from 'react-redux';
+import AuthUserContext from './store/AuthUserContext';
+import FirebaseContext from './store/FirebaseContext';
 
 
 function App() {
-  const dispatch = useDispatch()
-  const firebase = useSelector(state=>state.firebase.firebase)
+  const firebase = useContext(FirebaseContext)
+  const{setUser}=useContext(AuthUserContext)
 
   useEffect(()=>{
     firebase.auth().onAuthStateChanged((user)=>{
-      dispatch(authUser(user))
+      setUser(user)
     })
 
   })

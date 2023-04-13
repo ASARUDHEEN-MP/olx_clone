@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
 import Search from '../../assets/Search';
 import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import { Link } from 'react-router-dom';
+import FirebaseContext from '../../store/FirebaseContext';
+import AuthUserContext from '../../store/AuthUserContext';
 
 function Header() {
-  const firebase = useSelector(state=>state.firebase.firebase)
+  const firebase = useContext(FirebaseContext)
   const history = useHistory()
-  const user = useSelector(state=>state.user.user)
+  const{user}=useContext(AuthUserContext)
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">

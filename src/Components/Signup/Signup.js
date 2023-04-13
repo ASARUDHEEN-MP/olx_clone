@@ -1,27 +1,31 @@
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import { useState } from 'react';
 import Logo from '../../olx-logo.png';
 import './Signup.css';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateField } from '../../Actions/signupActions';
+import { useContext } from 'react';
+import FirebaseContext from '../../store/FirebaseContext';
+
 
 
 export default function Signup() {
+  const[username,setUsername] = useState("")
+  const[phone,setPhone] = useState("")
+  const[email,setEmail] = useState("")
+  const[password,setPassword]=useState("")
   const history = useHistory()
-  const dispatch = useDispatch()
-  const signup = useSelector(state=>state.signup);
-  const firebase = useSelector(state=>state.firebase.firebase);
+  const firebase = useContext(FirebaseContext);
 
 
   const handleSubmit =(e)=>{
     e.preventDefault()
     console.log(firebase)
-    firebase.auth().createUserWithEmailAndPassword(signup.email,signup.password).then((result)=>{
-      result.user.updateProfile({displayName:signup.username}).then(()=>{
+    firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
+      result.user.updateProfile({displayName:username}).then(()=>{
         firebase.firestore().collection('users').add({
           id:result.user.uid,
-          username:signup.username,
-          phone:signup.phone,
+          username:username,
+          phone:phone,
           img_url:"",
           is_admin:false
             }).then(()=>{
@@ -40,8 +44,8 @@ export default function Signup() {
           <input
             className="input"
             type="text"
-            value={signup.username}
-            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
+            value={username}
+            onChange={(e)=>setUsername(e.target.value)}
             id="fname"
             name="username"
             defaultValue=""
@@ -52,8 +56,8 @@ export default function Signup() {
           <input
             className="input"
             type="email"
-            value={signup.email}
-            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
             id="fname"
             name="email"
             defaultValue=""
@@ -64,8 +68,8 @@ export default function Signup() {
           <input
             className="input"
             type="number"
-            value={signup.phone}
-            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
+            value={phone}
+            onChange={(e)=>setPhone(e.target.value)}
             id="lname"
             name="phone"
             defaultValue="Doe"
@@ -76,8 +80,8 @@ export default function Signup() {
           <input
             className="input"
             type="password"
-            value = {signup.password}
-            onChange={(e)=>dispatch(updateField(e.target.name,e.target.value))}
+            value = {password}
+            onChange={(e)=>setPassword(e.target.value)}
             id="lname"
             name="password"
             defaultValue=""

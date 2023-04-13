@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import Heart from '../../assets/Heart';
 import './Post.css';
@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productUpdate } from '../../Actions/poductAction';
 import { PostUpdate } from '../../Actions/PostAction';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import FirebaseContext from '../../store/FirebaseContext';
+import PostDetailsContext from '../../store/PostDetailsContext';
 
 
 
 function Posts() {
-  const firebase = useSelector(state=>state.firebase.firebase)
+  const {post,setPost} = useContext(PostDetailsContext)
+  const firebase = useContext(FirebaseContext)
   const products = useSelector(state=>state.product.product)
   const dispatch = useDispatch()
   const postdetails = useSelector(state=>state.postDetails)

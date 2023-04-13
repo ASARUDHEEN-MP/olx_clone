@@ -2,15 +2,16 @@ import Header from '../Header/Header'
 import './Profile.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProfile } from '../../Actions/ProfileAction'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import FirebaseContext from '../../store/FirebaseContext'
+import AuthUserContext from '../../store/AuthUserContext'
 
 
 const Profile =()=>{
-    const user = useSelector(state=>state.user.user)
+    const {user} = useContext(AuthUserContext)
     const [uploadimg,setUploadimg] = useState("")
-    console.log(user,user.uid,'...........................................')
 
-    const firebase = useSelector(state=>state.firebase.firebase)
+    const firebase = useContext(FirebaseContext)
     const dispatch = useDispatch()
     const profile = useSelector(state=>state.profile)
 
@@ -19,7 +20,6 @@ const Profile =()=>{
             snapshot.forEach((doc)=>{
                 const imageURL = doc.data().img_url;
                 dispatch(updateProfile(imageURL))
-                console.log(imageURL,'...........snap..............')
             })
         })
     },[user,firebase])

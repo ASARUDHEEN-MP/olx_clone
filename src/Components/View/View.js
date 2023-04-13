@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect,useState } from 'react';
 import './View.css';
 import { useSelector } from 'react-redux';
+import FirebaseContext from '../../store/FirebaseContext';
 
 
 function View() {
 
   const [userDetails,setUserDetails] = useState()
   const postDetails = useSelector(state=>state.postDetails.post)
-  console.log(userDetails,'user DETAILS')
-  const firebase = useSelector(state=>state.firebase.firebase)
+  const firebase = useContext(FirebaseContext)
 
 
   useEffect(()=>{

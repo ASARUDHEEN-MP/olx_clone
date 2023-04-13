@@ -1,6 +1,5 @@
 import {createStore,combineReducers} from 'redux';
 import signupReducer from '../Reducers/signupReducers';
-import firebaseReducer from '../Reducers/firebaseReducer';
 import signinReducer from '../Reducers/signinReducer';
 import authReducer from '../Reducers/authReducer';
 import CreateFormReducer from '../Reducers/CreateFormReducer';
@@ -14,7 +13,6 @@ import AdminLoginReducer from '../Reducers/AdminLoginReducer';
 const rootReducer = combineReducers({
     signup:signupReducer,
     signin:signinReducer,
-    firebase:firebaseReducer,
     user:authReducer,
     createForm:CreateFormReducer,
     product:productReducer,
