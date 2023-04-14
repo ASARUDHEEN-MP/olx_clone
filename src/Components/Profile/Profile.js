@@ -18,8 +18,10 @@ const Profile =()=>{
     useEffect(()=>{
         user&&firebase.firestore().collection('users').where('id', '==', user.uid).get().then((snapshot)=>{
             snapshot.forEach((doc)=>{
+              console.log(doc)
                 const imageURL = doc.data().img_url;
                 dispatch(updateProfile(imageURL))
+                console.log(imageURL,'ddddd')
             })
         })
     },[user,firebase])
