@@ -22,10 +22,11 @@ import FirebaseContext from './store/FirebaseContext';
 
 function App() {
   const firebase = useContext(FirebaseContext)
-  const{setUser}=useContext(AuthUserContext)
+  const{user,setUser}=useContext(AuthUserContext)
 
   useEffect(()=>{
     firebase.auth().onAuthStateChanged((user)=>{
+      console.log(user)
       setUser(user)
     })
 

@@ -4,14 +4,13 @@ import 'firebase/firestore'
 import 'firebase/storage'
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyDJ6MEalIlLr7ceJcopEDaqKuyBzfV1G1w",
-    authDomain: "olxclone-69730.firebaseapp.com",
-    projectId: "olxclone-69730",
-    storageBucket: "olxclone-69730.appspot.com",
-    messagingSenderId: "92755873466",
-    appId: "1:92755873466:web:144da93dceba6043b8fc83",
-    measurementId: "G-FM23HBL6KQ"
-  };
-
+  apiKey: "AIzaSyCKfOBE7fhWMnBnojdQEbwOfhWq0-zIbfc",
+  authDomain: "olxclone-df500.firebaseapp.com",
+  projectId: "olxclone-df500",
+  storageBucket: "olxclone-df500.appspot.com",
+  messagingSenderId: "303305983749",
+  appId: "1:303305983749:web:bafd824e683804e40a596c",
+  measurementId: "G-NKFSNQ6EP7"
+};
 
   export default firebase.initializeApp((firebaseConfig))

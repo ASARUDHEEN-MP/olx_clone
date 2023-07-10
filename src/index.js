@@ -9,13 +9,17 @@ import {AuthProvider} from './store/AuthUserContext';
 import { PostDetailProvider } from './store/PostDetailsContext';
 
 
+
 ReactDOM.render(
 
 <Provider store={store}>
 <FirebaseContext.Provider value={firebase}>
 <AuthProvider>
 <PostDetailProvider>
-<App />
+
+    <App />
+ 
+
 </PostDetailProvider>
 </AuthProvider>
 </FirebaseContext.Provider>

@@ -21,14 +21,15 @@ export default function Signup() {
     e.preventDefault()
     console.log(firebase)
     firebase.auth().createUserWithEmailAndPassword(email,password).then((result)=>{
-      result.user.updateProfile({displayName:username}).then(()=>{
+      result.user.updateProfile({displayName:username}) .then(()=>{
         firebase.firestore().collection('users').add({
           id:result.user.uid,
           username:username,
           phone:phone,
-          img_url:"",
-          is_admin:false
-            }).then(()=>{
+          // img_url:"",
+          // is_admin:false
+            })
+            .then(()=>{
           history.push("/login")
         })
       })

@@ -5,12 +5,12 @@ const AuthUserContext = createContext(null)
 
 
 
-export function AuthProvider(props) {
+export  function AuthProvider({children}) {
     const [user, setUser] = useState("");
   
     return (
-      <AuthUserContext.Provider value={{ user, setUser }}>
-        {props.children}
+      <AuthUserContext.Provider value={{user,setUser}}>
+        {children}
       </AuthUserContext.Provider>
     );
   }

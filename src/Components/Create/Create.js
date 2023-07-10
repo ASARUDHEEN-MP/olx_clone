@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 import FirebaseContext from '../../store/FirebaseContext';
 import AuthUserContext from '../../store/AuthUserContext';
 
-
 const Create = () => {
   const firebase = useContext(FirebaseContext)
   const{user}= useContext(AuthUserContext)
